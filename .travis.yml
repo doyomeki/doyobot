@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+    - '0.12'
+deploy:
+  provider: heroku
+  api_key:
+    secure: NnCtXB00+T6zMLIVCdGoUlFe42e3p+tflIHvqzthNrUolILi1ghgOWncEJfqnnscosd8pR9Szalp5EIgtc2Q9zvOfKtlayRv5QDEPvILpYcgTduWEwJxLVbm8+ozr6oTnd+jmB/rcZekPa2tn1MjQjHVVI1p1Vu1ESGZmd8JzsU=
+  app: doyobot
+  on:
+    repo: doyomeki/doyobot
