@@ -18,6 +18,7 @@
     "hubot-scripts": "^2.16.0",
     "hubot-shipit": "^0.2.0",
     "hubot-slack": "^3.3.0",
+    "hubot-suddendeath": "0.0.3",
     "hubot-sushiyuki": "0.0.9"
   },
   "engines": {
