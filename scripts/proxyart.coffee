@@ -1,34 +1,32 @@
 # Description:
-#   proxyart
+#   Express proxyart
 #
-# Notes:
-#   doyobot proxyart :4oki: :3oki: SANOKI
+# Commands:
+#   hubot proxyart me <text>
+#   hubot proxyart me <text> <bg> <fg>
+#
+# Author:
+#   @shiraco
+
+class Proxyart
+  proxyartme: (msg, text, bg=":white_circle:", fg=":black_circle:") ->
+    request = msg.http("https://texttobinary.herokuapp.com/proxyart")
+                          .query(text: text, bg: bg, fg: fg)
+                          .get()
+    request (err, res, body) ->
+      return msg.send body
 
 module.exports = (robot) ->
-  robot.hear /doyobot proxyart :(.*): :(.*): ?(.*)/i, (msg) ->
-    if msg.match[1] == '4oki'
-      background = 0
-    else if msg.match[1] == '3oki'
-      background = 1
-    else
-      background = 0
+  proxyart = new Proxyart
 
-    if msg.match[2] == '4oki'
-      frontground = 0
-    else if msg.match[2] == '3oki'
-      frontground = 1
+  robot.respond /proxyart me (.+)/i, (msg) ->
+    args = msg.match[1].split(' ')
+    text = encodeURIComponent args[0]
+
+    if args.length == 3
+      bg = args[1]
+      fg = args[2]
+      msg.send proxyart.proxyartme(msg, text, bg, fg)
+
     else
-      frontground = 0
-    proxyartText = msg.match[3]
-    robot.logger.info msg.match[0]
-    robot.http('https://texttobinary.herokuapp.com/proxyart')
-      .query(
-        text : proxyartText
-        bg : background
-        fg : frontground
-        )
-        .get() (err, res, body) ->
-          if err
-            msg.reply 'error proxyart'
-          robot.logger.info body
-          msg.send "#{body}"
+      msg.send proxyart.proxyartme(msg, text)
